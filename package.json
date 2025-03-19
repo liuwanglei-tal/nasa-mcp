@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "NASA APOD MCP Service for Cursor IDE",
   "main": "nasa-mcp.js",
+  "bin": {
+    "nasa-mcp": "./nasa-mcp.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node nasa-mcp.js"
@@ -21,9 +24,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/liuwanglei-tal/nasa-mcp"
+    "url": "git+https://github.com/liuwanglei-tal/nasa-mcp.git"
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/liuwanglei-tal/nasa-mcp/issues"
+  },
+  "homepage": "https://github.com/liuwanglei-tal/nasa-mcp#readme",
+  "devDependencies": {}
 }
