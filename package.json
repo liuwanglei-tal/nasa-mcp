@@ -1,5 +1,5 @@
 {
-  "name": "@cursor/nasa-apod-mcp",
+  "name": "nasa-apod-mcp",
   "version": "1.0.0",
   "description": "NASA APOD MCP Service for Cursor IDE",
   "main": "nasa-mcp.js",
