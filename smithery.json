@@ -1,0 +1,39 @@
+{
+    "name": "@your-username/nasa-apod-mcp",
+    "version": "0.1.0",
+    "displayName": "NASA天文图片 MCP",
+    "description": "通过自然语言获取 NASA 每日天文图片(APOD)的 MCP 工具，支持自定义API密钥",
+    "author": {
+        "name": "Your Name",
+        "email": "your.email@example.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yourusername/nasa-mcp"
+    },
+    "license": "MIT",
+    "keywords": ["NASA", "天文", "图片", "APOD", "MCP"],
+    "category": "Content Fetching",
+    "server": {
+        "type": "python",
+        "entry": "nasa_mcp.core:mcp_nasa_today_apod",
+        "requirements": ["requests>=2.25.1"]
+    },
+    "examples": [
+        {
+            "input": "今日天文图",
+            "description": "获取今天的天文图片"
+        },
+        {
+            "input": "今日天文图",
+            "parameters": {
+                "api_key": "your-nasa-api-key"
+            },
+            "description": "使用自定义API key获取今天的天文图片"
+        }
+    ],
+    "documentation": {
+        "setup": "## 配置\n1. 访问 [NASA API 门户](https://api.nasa.gov/)\n2. 获取你的 API key\n3. 设置环境变量 `NASA_API_KEY` 或在调用时传入 `api_key` 参数",
+        "usage": "## 使用方法\n```python\nfrom smithery import Client\n\nclient = Client()\nresult = client.call('@your-username/nasa-apod-mcp', '今日天文图')\nprint(result)\n```"
+    }
+} 

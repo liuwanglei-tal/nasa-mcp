@@ -1,0 +1,24 @@
+name: nasa-apod
+version: 0.1.0
+description: 通过自然语言获取 NASA 每日天文图片(APOD)的 MCP 工具
+author: Simon Liu
+repository: https://github.com/yourusername/nasa-mcp
+license: MIT
+
+mcp:
+  entry_point: nasa_mcp.core:mcp_nasa_today_apod
+  config_file: src/nasa_mcp/mcp.json
+
+build:
+  python_version: ">=3.7"
+  dependencies:
+    - requests>=2.25.1
+
+publish:
+  platform: smithery.ai
+  visibility: public
+  tags:
+    - NASA
+    - 天文
+    - 图片
+    - APOD 
