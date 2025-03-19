@@ -11,10 +11,15 @@ async function handleQuery(query, options = {}) {
             throw new Error('NASA API Key is required. Please provide it via environment variable NASA_API_KEY or as a parameter');
         }
 
-        // 默认获取今天的图片
+        // 设置请求参数
         const params = {
             api_key: apiKey
         };
+
+        // 如果指定了日期，添加到参数中
+        if (options.date) {
+            params.date = options.date;
+        }
 
         const response = await axios.get(NASA_APOD_URL, { params });
         
@@ -55,6 +60,14 @@ process.stdin.on('end', async () => {
             options.api_key = apiKeyMatch[1];
             // 从查询中移除 API key 参数
             query = query.replace(/--api_key=[^\s]+/, '').trim();
+        }
+
+        // 检查是否有 --date 参数
+        const dateMatch = query.match(/--date=(\d{4}-\d{2}-\d{2})/);
+        if (dateMatch) {
+            options.date = dateMatch[1];
+            // 从查询中移除 date 参数
+            query = query.replace(/--date=[^\s]+/, '').trim();
         }
         
         const result = await handleQuery(query, options);

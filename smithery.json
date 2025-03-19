@@ -2,11 +2,11 @@
     "name": "@cursor/nasa-apod-mcp",
     "version": "1.0.0",
     "displayName": "NASA天文图片 MCP",
-    "description": "通过自然语言获取 NASA 每日天文图片(APOD)的 MCP 工具，支持自定义API密钥",
-    "author": "your-username",
+    "description": "通过自然语言获取 NASA 每日天文图片(APOD)的 MCP 工具，支持自定义API密钥和指定日期",
+    "author": "simon liu",
     "repository": {
         "type": "git",
-        "url": "https://github.com/yourusername/nasa-mcp"
+        "url": "https://github.com/liuwanglei-tal/nasa-mcp"
     },
     "license": "MIT",
     "keywords": [
@@ -26,6 +26,11 @@
                 "description": "NASA API Key",
                 "required": false,
                 "default": "${NASA_API_KEY}"
+            },
+            "date": {
+                "type": "string",
+                "description": "指定日期 (YYYY-MM-DD格式)",
+                "required": false
             }
         }
     },
@@ -35,16 +40,17 @@
             "description": "获取今天的天文图片"
         },
         {
-            "input": "今日天文图",
-            "parameters": {
-                "api_key": "your-nasa-api-key"
-            },
+            "input": "2024年1月1日的天文图片 --date=2024-01-01",
+            "description": "获取指定日期的天文图片"
+        },
+        {
+            "input": "今日天文图 --api_key=your-nasa-api-key",
             "description": "使用自定义API key获取今天的天文图片"
         }
     ],
     "documentation": {
         "setup": "## 配置\n1. 访问 [NASA API 门户](https://api.nasa.gov/)\n2. 获取你的 API key\n3. 设置环境变量 `NASA_API_KEY` 或在调用时传入 `api_key` 参数",
-        "usage": "## Cursor中使用\n```\n/mcp install @cursor/nasa-apod-mcp\n\n# 使用默认API key\n今日天文图\n\n# 使用自定义API key\n今日天文图 --api_key=your-nasa-api-key\n```\n\n## Node.js中使用\n```javascript\nconst client = require('@smithery/client');\n\nasync function main() {\n  // 使用默认API key\n  const result = await client.call('@cursor/nasa-apod-mcp', '今日天文图');\n  \n  // 或使用自定义API key\n  const resultWithKey = await client.call('@cursor/nasa-apod-mcp', '今日天文图', {\n    api_key: 'your-nasa-api-key'\n  });\n  \n  console.log(result);\n}\n\nmain();\n```"
+        "usage": "## Cursor中使用\n```\n/mcp install @cursor/nasa-apod-mcp\n\n# 获取今天的天文图片\n今日天文图\n\n# 获取指定日期的天文图片\n2024年1月1日的天文图片 --date=2024-01-01\n\n# 使用自定义API key\n今日天文图 --api_key=your-nasa-api-key\n```\n\n## Node.js中使用\n```javascript\nconst client = require('@smithery/client');\n\nasync function main() {\n  // 获取今天的天文图片\n  const result = await client.call('@cursor/nasa-apod-mcp', '今日天文图');\n  \n  // 获取指定日期的天文图片\n  const resultWithDate = await client.call('@cursor/nasa-apod-mcp', '2024年1月1日的天文图片', {\n    date: '2024-01-01'\n  });\n  \n  // 使用自定义API key\n  const resultWithKey = await client.call('@cursor/nasa-apod-mcp', '今日天文图', {\n    api_key: 'your-nasa-api-key'\n  });\n  \n  console.log(result);\n}\n\nmain();\n```"
     },
     "main": "nasa-mcp.js",
     "type": "node",
