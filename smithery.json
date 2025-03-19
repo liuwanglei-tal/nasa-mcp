@@ -1,23 +1,33 @@
 {
-    "name": "@your-username/nasa-apod-mcp",
-    "version": "0.1.0",
+    "name": "@cursor/nasa-apod-mcp",
+    "version": "1.0.0",
     "displayName": "NASA天文图片 MCP",
     "description": "通过自然语言获取 NASA 每日天文图片(APOD)的 MCP 工具，支持自定义API密钥",
-    "author": {
-        "name": "Your Name",
-        "email": "your.email@example.com"
-    },
+    "author": "your-username",
     "repository": {
         "type": "git",
         "url": "https://github.com/yourusername/nasa-mcp"
     },
     "license": "MIT",
-    "keywords": ["NASA", "天文", "图片", "APOD", "MCP"],
+    "keywords": [
+        "nasa",
+        "apod",
+        "astronomy",
+        "mcp",
+        "cursor"
+    ],
     "category": "Content Fetching",
     "server": {
-        "type": "python",
-        "entry": "nasa_mcp.core:mcp_nasa_today_apod",
-        "requirements": ["requests>=2.25.1"]
+        "type": "node",
+        "entry": "nasa-mcp.js",
+        "parameters": {
+            "api_key": {
+                "type": "string",
+                "description": "NASA API Key",
+                "required": false,
+                "default": "${NASA_API_KEY}"
+            }
+        }
     },
     "examples": [
         {
@@ -34,6 +44,14 @@
     ],
     "documentation": {
         "setup": "## 配置\n1. 访问 [NASA API 门户](https://api.nasa.gov/)\n2. 获取你的 API key\n3. 设置环境变量 `NASA_API_KEY` 或在调用时传入 `api_key` 参数",
-        "usage": "## 使用方法\n```python\nfrom smithery import Client\n\nclient = Client()\nresult = client.call('@your-username/nasa-apod-mcp', '今日天文图')\nprint(result)\n```"
+        "usage": "## Cursor中使用\n```\n/mcp install @cursor/nasa-apod-mcp\n\n# 使用默认API key\n今日天文图\n\n# 使用自定义API key\n今日天文图 --api_key=your-nasa-api-key\n```\n\n## Node.js中使用\n```javascript\nconst client = require('@smithery/client');\n\nasync function main() {\n  // 使用默认API key\n  const result = await client.call('@cursor/nasa-apod-mcp', '今日天文图');\n  \n  // 或使用自定义API key\n  const resultWithKey = await client.call('@cursor/nasa-apod-mcp', '今日天文图', {\n    api_key: 'your-nasa-api-key'\n  });\n  \n  console.log(result);\n}\n\nmain();\n```"
+    },
+    "main": "nasa-mcp.js",
+    "type": "node",
+    "dependencies": {
+        "axios": "^1.6.7"
+    },
+    "scripts": {
+        "start": "node nasa-mcp.js"
     }
 } 

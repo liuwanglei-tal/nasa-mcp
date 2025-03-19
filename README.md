@@ -1,109 +1,88 @@
-# NASA MCP 工具
+# NASA APOD MCP Service
 
-这是一个基于 MCP (Machine Conversation Protocol) 的工具，用于通过自然语言获取 NASA 的天文图片数据。
+通过自然语言获取 NASA 每日天文图片(APOD)的 MCP 工具。
 
 ## 功能特点
 
-- 支持自然语言查询 NASA 每日天文图片 (APOD)
-- 返回格式化的图片信息，包括标题、日期、描述和高清图片链接
-- 支持自定义 NASA API key
-- 简单易用，无需复杂参数
+- 获取 NASA 每日天文图片
+- 支持自然语言查询
+- 返回图片标题、描述、URL等信息
+- 支持自定义 API 密钥
+- 支持在 Cursor IDE 中直接使用
 
-## 安装方法
+## Cursor 安装
 
-1. 确保你已经安装了 Python 3.7 或更高版本
-2. 安装 MCP CLI 工具：
-   ```bash
-   pip install mcp-cli
-   ```
+1. 打开 Cursor IDE
+2. 在命令面板中输入：
+```bash
+/mcp install @cursor/nasa-apod-mcp
+```
 
-3. 安装 NASA MCP 工具：
-   ```bash
-   pip install nasa-mcp
-   ```
+## 配置
+
+1. 访问 [NASA API 门户](https://api.nasa.gov/)
+2. 获取你的 API key
+3. 设置环境变量 `NASA_API_KEY` 或在使用时通过参数传入
 
 ## 使用方法
 
-### 基本使用
+### 在 Cursor 中使用
 
-1. 在命令行中使用（使用默认的 DEMO_KEY）：
-   ```bash
-   mcp "今日天文图"
-   ```
+```bash
+# 使用默认 API key（需要设置环境变量 NASA_API_KEY）
+今日天文图
 
-2. 在命令行中使用自定义 API key：
-   ```bash
-   mcp "今日天文图" --api_key "your-api-key-here"
-   ```
-
-3. 在 Python 代码中使用：
-   ```python
-   from mcp.client import Client
-   
-   client = Client()
-   
-   # 使用默认的 DEMO_KEY
-   result = client.call("今日天文图")
-   print(result)
-   
-   # 使用自定义 API key
-   result = client.call("今日天文图", api_key="your-api-key-here")
-   print(result)
-   ```
-
-### API Key 配置
-
-你可以通过以下三种方式配置 NASA API key（按优先级排序）：
-
-1. 直接在调用时传入：
-   ```python
-   result = client.call("今日天文图", api_key="your-api-key-here")
-   ```
-
-2. 设置环境变量：
-   ```bash
-   export NASA_API_KEY="your-api-key-here"
-   ```
-
-3. 使用默认的 DEMO_KEY（有请求频率限制）
-
-获取 NASA API key：
-1. 访问 [NASA API 门户](https://api.nasa.gov/)
-2. 填写注册表单
-3. 你将立即收到 API key
-
-注意：DEMO_KEY 的限制是：
-- 每小时最多 30 次请求
-- 每天最多 50 次请求
-
-建议获取自己的 API key，每小时可以请求 1,000 次。
-
-## 支持的查询语句
-
-- "今日天文图"
-- "显示今天的天文图片"
-- "获取今天的天文图"
-
-## 示例输出
-
+# 使用自定义 API key
+今日天文图 --api_key=your-nasa-api-key
 ```
-今日天文图片信息：
 
-标题：Blue Ghost's Diamond Ring
-日期：2024-03-19
-图片链接：https://apod.nasa.gov/apod/image/xxx.jpg
+### 在 Node.js 中使用
 
-描述：这是一张来自 NASA 的精彩天文图片...
+```javascript
+const client = require('@smithery/client');
+
+async function main() {
+  // 使用默认 API key（需要设置环境变量 NASA_API_KEY）
+  const result = await client.call('@cursor/nasa-apod-mcp', '今日天文图');
+  
+  // 或使用自定义 API key
+  const resultWithKey = await client.call('@cursor/nasa-apod-mcp', '今日天文图', {
+    api_key: 'your-nasa-api-key'
+  });
+  
+  console.log(result);
+}
+
+main();
+```
+
+### 命令行使用
+
+```bash
+# 使用环境变量中的 API key
+echo "获取今天的天文图片" | NASA_API_KEY=your_api_key node nasa-mcp.js
+
+# 使用自定义 API key
+echo "获取今天的天文图片 --api_key=your-nasa-api-key" | node nasa-mcp.js
+```
+
+## 返回数据格式
+
+```json
+{
+  "title": "图片标题",
+  "date": "日期",
+  "explanation": "详细解释",
+  "url": "图片URL",
+  "media_type": "媒体类型",
+  "copyright": "版权信息"
+}
 ```
 
 ## 许可证
 
-MIT License
-
-## 贡献指南
-
-欢迎提交 Issue 和 Pull Request！
+MIT
 
 ## 作者
 
-你的名字 (your.email@example.com) 
+your-username 
